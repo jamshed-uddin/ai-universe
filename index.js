@@ -57,12 +57,59 @@ const showCardDetail = () => {
   innerContainer.innerHTML = `
   <input type="checkbox" id="my-modal-3" class="modal-toggle" />
   <div class="modal">
-      <div class="modal-box w-11/12 max-w-5xl relative overflow-visible">
-          <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-[-16px] top-[-16px]">✕</label>
-          <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
-          <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia
-              for free!</p>
+  <div class="modal-box w-11/12 max-w-5xl h-fit max-h-fit relative overflow-visible">
+  <label for="my-modal-3"
+      class="btn btn-sm btn-circle bg-red-500 border-0 hover:bg-red-400 absolute right-[-16px] top-[-16px]">✕</label>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div class="border-2 border-red-300 rounded-lg p-5 bg-red-50">
+          <p class="text-2xl font-bold">
+              ChatGPT is an AI-powered chatbot platform that uses OpenAI's GPT technology to simulate human
+              conversation.
+          </p>
+          <div class="flex justify-between text-center gap-3 my-8">
+              <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                  <p>Basic</p>
+                  <p>$10/month</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                  <p>standard</p>
+                  <p>$100/year</p>
+              </div>
+              <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                  <p>pro</p>
+                  <p>$300/lifetime</p>
+              </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div>
+                  <h1 class="text-2xl font-bold p-2">Features</h1>
+                  <ul class="list-disc pl-5 ">
+                      <li>Customizable responses
+
+                      </li>
+                      <li> Multilingual support</li>
+                      <li>Seamless integration</li>
+                  </ul>
+              </div>
+              <div>
+                  <h1 class="text-2xl font-bold p-2">integration</h1>
+                  <ul class="list-disc pl-5 ">
+                      <li>FB Messenger</li>
+                      <li>Slack</li>
+                      <li>Telegram</li>
+                  </ul>
+              </div>
+          </div>
       </div>
+      <div class="p-5 border rounded-lg text-center">
+          <img src="Rectangle 15 (1).png" alt="">
+          <h1 class="text-xl font-bold py-3">hello world,things been bad</h1>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia architecto, tenetur
+              natus
+          </p>
+      </div>
+  </div>
+</div>
   </div>
   
   
