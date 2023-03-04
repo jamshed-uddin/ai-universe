@@ -1,6 +1,7 @@
 // console.log("js file attached");
 
 const loadLimited = () => {
+  loader(true);
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((res) => res.json())
     .then((data) => displaAllData(data.data.tools.slice(0, 6)));
@@ -66,6 +67,7 @@ const displaAllData = (allData) => {
       `;
     container.appendChild(innerContainer);
   });
+  loader(false);
   const mainContainer = document.getElementById("container");
   const btnDiv = document.createElement("div");
   btnDiv.innerHTML = `
@@ -164,7 +166,13 @@ const showCardDetail = (modalData) => {
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold p-2">integration</h1>
-                        <ul class="list-disc pl-5 ">
+                        <p class="${
+                          modalData.integrations ? "hidden" : "block"
+                        }">No data found</p>
+
+                        <ul class="list-disc pl-5  ${
+                          modalData.integrations ? "block" : "hidden"
+                        }">
                             <li>${
                               modalData.integrations
                                 ? modalData.integrations[0]
@@ -189,9 +197,8 @@ const showCardDetail = (modalData) => {
                <p id="accuracy" class="bg-red-600 rounded-lg px-3 py-1 text-white w-fit absolute top-1 right-1 ${
                  modalData.accuracy.score ? "block" : "hidden"
                }">
-               ${modalData.accuracy.score * 100 + "% accuracy"}
-
-               </p>
+              ${modalData.accuracy.score * 100 + "% accuracy"}
+              </p>
                <img src="${
                  modalData.image_link[0]
                    ? modalData.image_link[0]
@@ -218,4 +225,11 @@ const showCardDetail = (modalData) => {
   modalContainer.appendChild(innerContainer);
 };
 
+const loader = (isLoading) => {
+  if (isLoading) {
+    document.getElementById("loader").classList.remove("hidden");
+  } else {
+    document.getElementById("loader").classList.add("hidden");
+  }
+};
 loadLimited();
