@@ -106,10 +106,10 @@ const showCardDetail = (modalData) => {
   <label for="my-modal" class="bg-red-500 text-white rounded-2xl px-3 py-2 font-bold  absolute right-0 lg:right-[-40px] top-0 lg:top-0 cursor-pointer">✕</label>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
             <div class="border-2 border-red-300 rounded-lg p-5 bg-red-50">
-                <p class="text-2xl font-bold">
+                <p class="text-xl font-bold">
                     ${modalData.description}
                 </p>
-                <div class="flex flex-col lg:flex-row justify-between text-center gap-3 my-8">
+                <div class="flex flex-col lg:flex-row justify-between text-center gap-3 my-6">
                     <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
                         <p>${
                           modalData.pricing ? modalData.pricing[0].plan : "Free"
