@@ -1,6 +1,12 @@
 // console.log("js file attached");
 
-const showCard = () => {
+const loadLimited = () => {
+  fetch("https://openapi.programming-hero.com/api/ai/tools")
+    .then((res) => res.json())
+    .then((data) => displaAllData(data.data.tools.slice(0, 6)));
+};
+
+const showAll = () => {
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((res) => res.json())
     .then((data) => displaAllData(data.data.tools));
@@ -9,8 +15,11 @@ const showCard = () => {
 // function for displaying data in UI
 const displaAllData = (allData) => {
   const container = document.getElementById("card-container");
+
+  container.innerHTML = "";
+
   //   console.log(container);
-  allData.slice(0, 6).forEach((element) => {
+  allData.forEach((element) => {
     const innerContainer = document.createElement("div");
     innerContainer.innerHTML = `
       <div class="card card-compact p-3 bg-base-100 h-full shadow relative">
@@ -42,9 +51,10 @@ const displaAllData = (allData) => {
                       <div>
                     
                      
-                    <label onclick="cardDetail('${element.id}')" for="${
-      element.id
-    }" class="rounded-full text-red-500  bg-red-100 px-4 py-3 cursor-pointer"><i
+                      
+                      <label onclick="cardDetail('${
+                        element.id
+                      }')" for="my-modal" class="rounded-full text-red-500 bg-red-100 px-4 py-3 cursor-pointer""><i
                       class="fa-solid fa-arrow-right"></i></label>
                              
                       </div>
@@ -54,8 +64,19 @@ const displaAllData = (allData) => {
        </div>
      
       `;
-
     container.appendChild(innerContainer);
+  });
+  const mainContainer = document.getElementById("container");
+  const btnDiv = document.createElement("div");
+  btnDiv.innerHTML = `
+<div class="text-center my-5">
+          <button  id="show-all" class="bg-red-500 px-4 py-2 text-white font-semibold rounded-lg">Show all</button>
+      </div>
+`;
+  mainContainer.appendChild(btnDiv);
+  document.getElementById("show-all").addEventListener("click", function () {
+    showAll();
+    document.getElementById("show-all").style.display = "none";
   });
 };
 
@@ -66,107 +87,137 @@ const cardDetail = (id) => {
     .then((res) => res.json())
     .then((data) => showCardDetail(data.data));
 };
-
+const modalContainer = document.getElementById("modal-info");
 const showCardDetail = (modalData) => {
-  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = "";
   const innerContainer = document.createElement("div");
+  innerContainer.classList.add(
+    "modal-box",
+    "w-11/12",
+    "max-w-5xl",
+    "h-fit",
+    "max-h-fit",
+    "relative",
+    "overflow-scroll",
+    "lg:overflow-visible"
+  );
   innerContainer.innerHTML = `
-  <input type="checkbox" id="${modalData.id}" class="modal-toggle" />
-        <div class="modal ">
-
-            <div class="modal-box w-11/12 max-w-5xl h-full lg:h-fit mx-h-full lg:max-h-fit  relative overflow-scroll lg:overflow-visible">
-                <div class="modal-action absolute top-[-24px] lg:top-[-40px] right-0 lg:right-[-16px]">
-                    <label for="${modalData.id}"
-                        class="rounded-full text-white font-bold bg-red-500 px-4 py-3 cursor-pointer">✕</label>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    <div class="border-2 border-red-300 rounded-lg p-5 bg-red-50">
-                        <p class="text-2xl font-bold">
-                            ${modalData.description}
-                        </p>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 justify-between text-center gap-3 my-8">
-                            <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
-                                <p>${modalData.pricing[0].plan}</p>
-                                <p>${
-                                  modalData.pricing[0].price
-                                    ? modalData.pricing[0].price
-                                    : "Free of cost"
-                                }</p>
-                            </div>
-                            <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
-                                <p>${modalData.pricing[1].plan}</p>
-                                <p>${
-                                  modalData.pricing[1].price
-                                    ? modalData.pricing[1].price
-                                    : "Free of cost"
-                                }</p>
-                            </div>
-                            <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
-                                <p>${modalData.pricing[2].plan}</p>
-                                <p>${
-                                  modalData.pricing[2].price
-                                    ? modalData.pricing[2].price
-                                    : "Free of cost"
-                                }</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                            <div>
-                                <h1 class="text-2xl font-bold p-2">Features</h1>
-                                <ul class="list-disc pl-5 ">
-                                    <li>${modalData.features["1"].feature_name}
-                                    </li>
-                                    <li>${
-                                      modalData.features["2"].feature_name
-                                    }</li>
-                                    <li>${
-                                      modalData.features["3"].feature_name
-                                    }</li>
-                                   
-                                    
-                                </ul>
-                            </div>
-                            <div>
-                                <h1 class="text-2xl font-bold p-2">integration</h1>
-                                <ul class="list-disc pl-5 ">
-                                    <li>${modalData.integrations[0]}</li>
-                                    <li>${modalData.integrations[1]}</li>
-                                    <li>${modalData.integrations[2]}</li>
-                                   
-                                </ul>
-                            </div>
-                        </div>
+  
+  <label for="my-modal" class="bg-red-500 text-white rounded-2xl px-3 py-2 font-bold  absolute right-0 lg:right-[-40px] top-0 lg:top-0 cursor-pointer">✕</label>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="border-2 border-red-300 rounded-lg p-5 bg-red-50">
+                <p class="text-2xl font-bold">
+                    ${modalData.description}
+                </p>
+                <div class="flex flex-col lg:flex-row justify-between text-center gap-3 my-8">
+                    <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                        <p>${
+                          modalData.pricing ? modalData.pricing[0].plan : "Free"
+                        }</p>
+                        <p>${
+                          modalData.pricing
+                            ? modalData.pricing[0].price
+                            : "Free of cost"
+                        }</p>
                     </div>
-                    <div class="p-5 border rounded-lg text-center order-first lg:order-last">
-                    <div class="relative">
-                    <p class="bg-red-500 rounded-lg w-fit text-white px-3 py-1 absolute top-2 right-2">${
-                      modalData.accuracy.score * 100
-                    }% accuraacy</p>
-                    <img src="${
-                      modalData.image_link[0]
-                        ? modalData.image_link[0]
-                        : modalData.image_link[1]
-                    }" alt="">
+                    <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                        <p>${
+                          modalData.pricing ? modalData.pricing[0].plan : "Free"
+                        }</p>
+                        <p>${
+                          modalData.pricing
+                            ? modalData.pricing[1].price
+                            : "Free of cost"
+                        }</p>
                     </div>
-                        <h1 class="text-xl font-bold py-3">${
-                          modalData.input_output_examples[0].input
-                            ? modalData.input_output_examples[0].input
-                            : modalData.input_output_examples[1].input
-                        }</h1>
-                        <p>
-                        ${
-                          modalData.input_output_examples[0].output
-                            ? modalData.input_output_examples[0].output
-                            : modalData.input_output_examples[1].output
-                        }
-                        </p>
+                    <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
+                        <p>${
+                          modalData.pricing ? modalData.pricing[0].plan : "Free"
+                        }</p>
+                        <p>${
+                          modalData.pricing
+                            ? modalData.pricing[2].price
+                            : "Free of cost"
+                        }</p>
                     </div>
                 </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h1 class="text-2xl font-bold p-2">Features</h1>
+                        <ul class="list-disc pl-5 ">
+                            <li> ${
+                              modalData.features
+                                ? modalData.features["1"].feature_name
+                                : "No data found"
+                            }</li>
+                            <li>${
+                              modalData.features
+                                ? modalData.features["2"].feature_name
+                                : "No data found"
+                            }</li>
+                            <li>${
+                              modalData.features
+                                ? modalData.features["3"].feature_name
+                                : "No data found"
+                            }</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold p-2">integration</h1>
+                        <ul class="list-disc pl-5 ">
+                            <li>${
+                              modalData.integrations
+                                ? modalData.integrations[0]
+                                : "No data found"
+                            }</li>
+                            <li>${
+                              modalData.integrations
+                                ? modalData.integrations[1]
+                                : "No data found"
+                            }</li>
+                            <li>${
+                              modalData.integrations
+                                ? modalData.integrations[2]
+                                : "No data found"
+                            }</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 border rounded-lg text-center order-first lg:order-last">
+               <div class="relative">
+               <p id="accuracy" class="bg-red-600 rounded-lg px-3 py-1 text-white w-fit absolute top-1 right-1">
+               ${
+                 modalData.accuracy.score
+                   ? modalData.accuracy.score * 100 + "% accuracy"
+                   : ""
+               }
 
+               </p>
+               <img src="${
+                 modalData.image_link[0]
+                   ? modalData.image_link[0]
+                   : modalData.image_link[1]
+               }" alt="">
+               </div>
+                <h1 class="text-xl font-bold py-3">${
+                  modalData.input_output_examples
+                    ? modalData.input_output_examples[0].input
+                    : "AI is in development"
+                }</h1>
+                <p>${
+                  modalData.input_output_examples
+                    ? modalData.input_output_examples[0].output
+                    : " "
+                }
+                </p>
             </div>
         </div>
- 
- `;
+
+  
+  `;
+
   modalContainer.appendChild(innerContainer);
 };
-showCard();
+
+loadLimited();
