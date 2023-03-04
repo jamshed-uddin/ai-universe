@@ -1,4 +1,6 @@
 // console.log("js file attached");
+
+// --sort button function
 const sortedData = () => {
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((res) => res.json())
@@ -19,6 +21,7 @@ document.getElementById("sort-data").addEventListener("click", function () {
   sortedData();
 });
 
+// ---functions for making data limits
 const loadLimited = () => {
   loader(true);
   fetch("https://openapi.programming-hero.com/api/ai/tools")
@@ -35,10 +38,7 @@ const showAll = () => {
 // function for displaying data in UI
 const displaAllData = (allData) => {
   const container = document.getElementById("card-container");
-
   container.innerHTML = "";
-
-  //   console.log(container);
   allData.forEach((element) => {
     const innerContainer = document.createElement("div");
     innerContainer.innerHTML = `
@@ -47,18 +47,25 @@ const displaAllData = (allData) => {
                              element.image
                            }" alt="Shoes" /></figure>
            <div class="card-body mb-16">
-                     <h2 class="card-title font-bold">Features</h2>
-                     <ol class='list-decimal pl-5'>
-                     <li>${
-                       element.features[0] ? element.features[0] : "And more"
-                     }</li>
-                     <li>${
-                       element.features[1] ? element.features[1] : "And more"
-                     }</li>
-                     <li>${
-                       element.features[2] ? element.features[2] : "And more"
-                     }</li>
-                     </ol>
+                         <h2 class="card-title font-bold">Features</h2>
+                        <ol class='list-decimal pl-5'>
+                            <li>${
+                              element.features[0]
+                                ? element.features[0]
+                                : "And more"
+                            }</li>
+                            <li>${
+                              element.features[1]
+                                ? element.features[1]
+                                : "And more"
+                            }</li>
+                        
+                            <li>${
+                              element.features[2]
+                                ? element.features[2]
+                                : "And more"
+                            }</li>
+                        </ol>
                     
              <div class=' absolute bottom-0 right-0 left-0 px-6 py-3'>        
                 <div class="card-actions d-flex justify-between items-center border-t py-2">
@@ -68,16 +75,11 @@ const displaAllData = (allData) => {
                                element.published_in
                              }</p>
                       </div>
-                      <div>
-                    
-                     
-                      
-                      <label onclick="cardDetail('${
-                        element.id
-                      }')" for="my-modal" class="rounded-full text-red-500 bg-red-100 px-4 py-3 cursor-pointer""><i
-                      class="fa-solid fa-arrow-right"></i></label>
-                             
-                      </div>
+                    <div>
+                        <label onclick="cardDetail('${element.id}')" 
+                            for="my-modal" class="rounded-full text-red-500 font-semibold bg-red-100 px-4 py-3 cursor-pointer"">
+                            <i class="fa-solid fa-arrow-right"></i></label>
+                    </div>
                 </div>
             </div>
           </div>
@@ -86,7 +88,7 @@ const displaAllData = (allData) => {
       `;
     container.appendChild(innerContainer);
   });
-  loader(false);
+  loader(false); //spiner stopped------
 
   /*show all and show less button section */
   document.getElementById("show-all").addEventListener("click", function () {
@@ -258,4 +260,5 @@ const loader = (isLoading) => {
     document.getElementById("loader").classList.add("hidden");
   }
 };
+
 loadLimited();
