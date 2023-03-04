@@ -16,7 +16,6 @@ const sortByDate = (a, b) => {
 };
 
 document.getElementById("sort-data").addEventListener("click", function () {
-  console.log("clicked");
   sortedData();
 });
 
@@ -94,11 +93,15 @@ const displaAllData = (allData) => {
     showAll();
     document.getElementById("show-all").classList.add("hidden");
     document.getElementById("show-less").classList.remove("hidden");
+    document.getElementById("sort-data").setAttribute("disabled", "");
+    document.getElementById("sort-data").classList.add("cursor-not-allowed");
   });
   document.getElementById("show-less").addEventListener("click", function () {
     loadLimited();
     document.getElementById("show-all").classList.remove("hidden");
     document.getElementById("show-less").classList.add("hidden");
+    document.getElementById("sort-data").removeAttribute("disabled");
+    document.getElementById("sort-data").classList.remove("cursor-not-allowed");
   });
 };
 
