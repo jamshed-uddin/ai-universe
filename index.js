@@ -97,8 +97,10 @@ const showCardDetail = (modalData) => {
     "modal-box",
     "w-11/12",
     "max-w-5xl",
-    "h-fit",
-    "max-h-fit",
+    "h-full",
+    "lg:h-fit",
+    "max-h-full",
+    "lg:max-h-fit",
     "relative",
     "overflow-scroll",
     "lg:overflow-visible"
@@ -124,7 +126,7 @@ const showCardDetail = (modalData) => {
                     </div>
                     <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
                         <p>${
-                          modalData.pricing ? modalData.pricing[0].plan : "Free"
+                          modalData.pricing ? modalData.pricing[1].plan : "Free"
                         }</p>
                         <p>${
                           modalData.pricing
@@ -134,7 +136,7 @@ const showCardDetail = (modalData) => {
                     </div>
                     <div class="bg-white rounded-lg p-6 w-full text-red-500 font-bold text-lg">
                         <p>${
-                          modalData.pricing ? modalData.pricing[0].plan : "Free"
+                          modalData.pricing ? modalData.pricing[2].plan : "Free"
                         }</p>
                         <p>${
                           modalData.pricing
