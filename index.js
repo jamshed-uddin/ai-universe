@@ -68,17 +68,19 @@ const displaAllData = (allData) => {
     container.appendChild(innerContainer);
   });
   loader(false);
-  const mainContainer = document.getElementById("container");
-  const btnDiv = document.createElement("div");
-  btnDiv.innerHTML = `
-<div class="text-center my-5">
-          <button  id="show-all" class="bg-red-500 px-4 py-2 text-white font-semibold rounded-lg">Show all</button>
-      </div>
-`;
-  mainContainer.appendChild(btnDiv);
+
+  /*show all and show less button section */
   document.getElementById("show-all").addEventListener("click", function () {
+    loader(true);
     showAll();
-    document.getElementById("show-all").style.display = "none";
+
+    document.getElementById("show-all").classList.add("hidden");
+    document.getElementById("show-less").classList.remove("hidden");
+  });
+  document.getElementById("show-less").addEventListener("click", function () {
+    loadLimited();
+    document.getElementById("show-all").classList.remove("hidden");
+    document.getElementById("show-less").classList.add("hidden");
   });
 };
 
