@@ -186,12 +186,10 @@ const showCardDetail = (modalData) => {
             </div>
             <div class="p-5 border rounded-lg text-center order-first lg:order-last">
                <div class="relative">
-               <p id="accuracy" class="bg-red-600 rounded-lg px-3 py-1 text-white w-fit absolute top-1 right-1">
-               ${
-                 modalData.accuracy.score
-                   ? modalData.accuracy.score * 100 + "% accuracy"
-                   : ""
-               }
+               <p id="accuracy" class="bg-red-600 rounded-lg px-3 py-1 text-white w-fit absolute top-1 right-1 ${
+                 modalData.accuracy.score ? "block" : "hidden"
+               }">
+               ${modalData.accuracy.score * 100 + "% accuracy"}
 
                </p>
                <img src="${
