@@ -1,4 +1,24 @@
 // console.log("js file attached");
+const sortedData = () => {
+  fetch("https://openapi.programming-hero.com/api/ai/tools")
+    .then((res) => res.json())
+    .then((data) =>
+      displaAllData(data.data.tools.sort(sortByDate).slice(0, 6))
+    );
+};
+
+const sortByDate = (a, b) => {
+  const dateA = new Date(a.published_in);
+  const dateB = new Date(b.published_in);
+  if (dateA < dateB) return 1;
+  else if (dateA > dateB) return -1;
+  return 0;
+};
+
+document.getElementById("sort-data").addEventListener("click", function () {
+  console.log("clicked");
+  sortedData();
+});
 
 const loadLimited = () => {
   loader(true);
@@ -71,9 +91,7 @@ const displaAllData = (allData) => {
 
   /*show all and show less button section */
   document.getElementById("show-all").addEventListener("click", function () {
-    loader(true);
     showAll();
-
     document.getElementById("show-all").classList.add("hidden");
     document.getElementById("show-less").classList.remove("hidden");
   });
@@ -203,7 +221,7 @@ const showCardDetail = (modalData) => {
                }">
               ${modalData.accuracy.score * 100 + "% accuracy"}
               </p>
-               <img src="${
+               <img class="rounded-xl" src="${
                  modalData.image_link[0]
                    ? modalData.image_link[0]
                    : modalData.image_link[1]
@@ -229,6 +247,7 @@ const showCardDetail = (modalData) => {
   modalContainer.appendChild(innerContainer);
 };
 
+// spinner function
 const loader = (isLoading) => {
   if (isLoading) {
     document.getElementById("loader").classList.remove("hidden");
